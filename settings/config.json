@@ -1,1 +1,6 @@
-prefix=!
+{
+  "prefix": "!",
+  "intents": [],
+  "token": "MTEzMzQ1OTE4OTIzMDk5MzQxOA.G4ntrs.xbp0UZ5xpL-EDYBPRHrDZZ1Zze3rQ388NFIIqU",
+  "sync_commands_globally": true
+}

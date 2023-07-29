@@ -1,0 +1,27 @@
+JEI DISCORD BOT SPECS:
+  BASIC MODERATION:
+    ban, kick, mute, etc the basics 
+    
+  VERIFY USERS:
+    New server members select a role then a verification 
+    message gets sent to admins
+    Log to file
+    sets their nickname
+
+  MANAGE EMPLOYEES:
+    RESUMES:
+      Get resumes/google form response for potential hires
+      
+    FORMALS:
+      Integration with Google Sheets
+      Get schedule for employees for formals 
+      with their kids' names and grades and times 
+      they are in
+      Readonly
+
+    TIMELOG:
+      Integration with 
+        opentimeclock.com
+        Get a log of when they clocked in
+
+

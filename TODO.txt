@@ -1,0 +1,14 @@
+BOT CORE:
+  Logging system
+  Config system
+  Load cogs
+
+STUFF:
+  1. VERIFY
+  2. Manage employees
+  3. timelogs
+  4. new hires
+  
+
+SERVER:
+  find hosting
