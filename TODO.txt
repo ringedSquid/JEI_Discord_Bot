@@ -1,7 +1,9 @@
 BOT CORE:
-  Logging system
-  Config system
-  Load cogs
+  Logging system - DONE
+  Config system - DONE
+  Load cogs - DONE
+  Error handling
+  File system
 
 STUFF:
   1. VERIFY

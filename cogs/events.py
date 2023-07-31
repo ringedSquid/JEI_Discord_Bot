@@ -1,6 +1,8 @@
 import platform
 import os
 
+from modules.database import read
+
 import discord
 from discord.ext import commands
 
@@ -19,6 +21,12 @@ class Events(commands.Cog, name="events"):
         if (bot.config["sync_commands_globally"] == True):
             bot.logger.info("Syncing commands globally...")
             await bot.tree.sync()
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        bot = self.bot
+        bot.usr_logger.info(f"{member.id} joined!")
+        
 
 
 async def setup(bot):

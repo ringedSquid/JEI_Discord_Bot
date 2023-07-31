@@ -6,20 +6,21 @@ import sys
 import logging
 from typing import Dict
 
-
 from modules.logs import LoggingFormatter 
 
 import discord
+import aiosqlite
 from discord.ext.commands import Bot, Context
 
-LOG_PATH = "etc/logs/"
-CWD = os.getcwd()
+LOG_PATH = "etc/logs"
+#dir the project is contained in
+PATH = os.path.realpath(os.path.dirname(__file__))
 DEBUG = True
 
 #initialize logs
-def init_logs(log_path) -> logging.Logger:
+def init_logs(log_path: str, filename: str, w_mode: str, name: str) -> logging.Logger:
     #init logger
-    logger = logging.getLogger("bot")
+    logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
     #stdout
@@ -28,9 +29,9 @@ def init_logs(log_path) -> logging.Logger:
 
     #to files
     file_handler = logging.FileHandler(
-        filename = log_path + "log0.log",
+        filename = f"{PATH}/{log_path}/{filename}",
         encoding = "utf-8",
-        mode = 'w'
+        mode = w_mode 
     )
     file_handler.setFormatter(LoggingFormatter())
 
@@ -47,10 +48,10 @@ def init_logs(log_path) -> logging.Logger:
 def init_config() -> Dict:
     config = {}
     #Check for config and open
-    if (os.path.exists("settings/config.json") == False):
+    if (os.path.exists(f"{PATH}/settings/config.json") == False):
         sys.exit("ERROR: Config file does not exist!")
 
-    with open("settings/config.json", "r") as file:
+    with open(f"{PATH}/settings/config.json", 'r') as file:
         config = json.load(file)
         file.close()
 
@@ -67,9 +68,22 @@ def init_bot(config) -> Bot:
     
     return bot
 
+#init sql database
+async def init_db(bot) -> None:
+    async with aiosqlite.connect(
+        f"{PATH}/data/database.db"
+    ) as db:
+        with open(
+            f"{PATH}/data/schema.sql"
+        ) as file:
+            await db.executescript(file.read())
+        await db.commit()
+    
+    bot.logger.info("Database initalized!")
+
 #load all extensions
 async def load_cogs(bot) -> None:
-    for file in os.listdir("cogs/"):
+    for file in os.listdir(f"{PATH}/cogs/"):
         if (file.endswith(".py")):
             try:
                 await bot.load_extension(f"cogs.{file[:-3]}")
@@ -87,14 +101,17 @@ def main():
     if (os.path.exists(LOG_PATH) == False):
         os.mkdir(LOG_PATH)
 
-    logger = init_logs(LOG_PATH)
+    logger = init_logs(LOG_PATH, "log0.log", 'w', "bot")
+    usr_logger = init_logs(LOG_PATH, "usr_log0.log", 'a', "usr")
     
     #init bot
     bot = init_bot(config)
     bot.logger = logger
+    bot.usr_logger = usr_logger
     bot.config = config
 
     asyncio.run(load_cogs(bot))
+    asyncio.run(init_db(bot))
     bot.run(config["token"])
 
     
