@@ -59,10 +59,13 @@ def init_config() -> Dict:
 
 #initialize the bot
 def init_bot(config) -> Bot:
+    #init intents
+    intents = discord.Intents.default()
+    intents.members = True
     #init bot
     bot = Bot(
         command_prefix = config["prefix"],
-        intents = discord.Intents.default(),
+        intents = intents,
         help_commmand = None,
     )
     

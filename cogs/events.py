@@ -20,13 +20,19 @@ class Events(commands.Cog, name="events"):
         #sybc slash commands
         if (bot.config["sync_commands_globally"] == True):
             bot.logger.info("Syncing commands globally...")
-            await bot.tree.sync()
+            #await bot.tree.sync()
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         bot = self.bot
-        bot.usr_logger.info(f"{member.id} joined!")
-        
+        bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
+
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        bot = self.bot
+        bot.usr_logger.info(f"{member.name} <@{member.id}> left!")
+
 
 
 async def setup(bot):

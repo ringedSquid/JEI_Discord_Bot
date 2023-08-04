@@ -1,13 +1,8 @@
-2023-07-31 14:33:25 | INFO   | bot | Loaded extension events!
-2023-07-31 14:33:25 | ERROR  | bot | Failed to load extension timelog!
+2023-08-04 14:14:30 | INFO   | bot | Loaded extension events!
+2023-08-04 14:14:30 | ERROR  | bot | Failed to load extension timelog!
 Extension 'cogs.timelog' has no 'setup' function.
-2023-07-31 14:33:25 | ERROR  | bot | Failed to load extension moderation!
+2023-08-04 14:14:30 | ERROR  | bot | Failed to load extension moderation!
 Extension 'cogs.moderation' raised an error: NameError: name 'comamnds' is not defined
-2023-07-31 14:33:25 | ERROR  | bot | Failed to load extension employees!
+2023-08-04 14:14:30 | ERROR  | bot | Failed to load extension employees!
 Extension 'cogs.employees' has no 'setup' function.
-2023-07-31 14:33:25 | INFO   | bot | Database initalized!
-2023-07-31 14:33:28 | INFO   | bot | Logged in as bot1133459189230993418!
-2023-07-31 14:33:28 | INFO   | bot | discord.py version: 2.3.1
-2023-07-31 14:33:28 | INFO   | bot | python version: 3.11.4
-2023-07-31 14:33:28 | INFO   | bot | Running on: Linux 6.3.12_1, posix
-2023-07-31 14:33:28 | INFO   | bot | Syncing commands globally...
+2023-08-04 14:14:30 | INFO   | bot | Database initalized!

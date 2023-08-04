@@ -5,9 +5,10 @@ import aiosqlite
 DATA_PATH = f"{os.path.realpath(os.path.dirname(__file__))}/../data/database.db"
 
 #Check if user already exists
-async def is_existing(f_name: str, l_name: str) -> bool:
+async def is_existing(f_name: str, l_name: str, jei_id: str) -> bool:
     f_name = f_name.strip()
     l_name = l_name.strip()
+    jei_id = jei_id.strip()
 
     async with aiosqlite.connect(DATA_PATH) as db:
         async with db.execute(

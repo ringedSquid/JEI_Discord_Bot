@@ -3,7 +3,8 @@ BOT CORE:
   Config system - DONE
   Load cogs - DONE
   Error handling
-  File system
+  File system - DONE
+  MODALS 
 
 STUFF:
   1. VERIFY
