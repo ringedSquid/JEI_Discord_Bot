@@ -4,6 +4,8 @@ BOT CORE:
   Load cogs - DONE
   Error handling
   File system - DONE
+    needs way to check if modal entry has duplicate info
+
   MODALS 
 
 STUFF:

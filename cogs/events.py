@@ -1,7 +1,8 @@
 import platform
 import os
 
-from modules.database import read
+from modules.database import read 
+import modules.forms as forms
 
 import discord
 from discord.ext import commands
@@ -26,6 +27,11 @@ class Events(commands.Cog, name="events"):
     async def on_member_join(self, member):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
+        await member.send(view=forms.verify_view())
+        await view.wait()
+
+
+
 
 
     @commands.Cog.listener()
