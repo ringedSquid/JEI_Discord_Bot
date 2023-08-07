@@ -1,9 +1,10 @@
 import os
 from typing import Dict
+from pathlib import Path
 
 import aiosqlite
 
-DATA_PATH = f"{os.path.realpath(os.path.dirname(__file__))}/../data/database.db"
+DATA_PATH = f"{Path(__file__).parent.parent.parent}/data/database.db"
 
 #Add a user, adds them to the verified then adds them to the specialized tables
 #Data contains name, rank, discord id, syep or jei id
@@ -49,7 +50,8 @@ async def add_user(data: Dict)-> bool:
 
     async with aiosqlite.connect(DATA_PATH) as db:
         await db.execute(f"INSERT INTO {insert_seq}", insert_tup,)
-        await db.execute("INSERT INTO verified(discord_id, f_name, l_name, rank)", default_tup,) 
+        await db.execute("INSERT INTO verified(discord_id, f_name, l_name, rank) VALUES (?, ?, ?, ?)", default_tup,) 
+        print("LETS GO")
         await db.commit()
         return True
 

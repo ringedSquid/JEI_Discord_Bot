@@ -4,6 +4,12 @@ import discord
 
 from discord import SelectOption, ui
 
+verify_embed = discord.Embed(
+    title="Welcome to JEI!", 
+    description="Select your role and fill out the form to verify!", 
+    color=0xed333b,
+    author="JEI "
+)
 
 class verify_view(discord.ui.View):
     type = None
@@ -44,7 +50,7 @@ class verify_modal_admin(ui.Modal, title="verify"):
         placeholder = "",
         default = None,
         required = True,
-        max_length = 6,
+        max_length = 7,
     )
 
 
@@ -84,7 +90,7 @@ class verify_modal_intern(ui.Modal, title="verify"):
         placeholder = "1234567",
         default = None,
         required = True,
-        max_length = 6,
+        max_length = 7,
     )
 
     async def on_submit(self, interaction: discord.Interaction):
@@ -101,6 +107,6 @@ class verify_modal_intern(ui.Modal, title="verify"):
             }
             if (await edit.add_user(data) == True):
                 #function to send new interaction to data channel
-                await interaction.response.send_message(f"{str(data)}!")
+                await interaction.response.send_message("Cool!")
 
 

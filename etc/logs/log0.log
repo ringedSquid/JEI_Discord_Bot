@@ -1,13 +1,13 @@
-2023-08-05 16:34:00 | ERROR  | bot | Failed to load extension timelog!
+2023-08-07 14:28:54 | INFO   | bot | Loaded extension events!
+2023-08-07 14:28:54 | ERROR  | bot | Failed to load extension timelog!
 Extension 'cogs.timelog' has no 'setup' function.
-2023-08-05 16:34:00 | ERROR  | bot | Failed to load extension moderation!
+2023-08-07 14:28:54 | ERROR  | bot | Failed to load extension moderation!
 Extension 'cogs.moderation' raised an error: NameError: name 'comamnds' is not defined
-2023-08-05 16:34:00 | ERROR  | bot | Failed to load extension employees!
+2023-08-07 14:28:54 | ERROR  | bot | Failed to load extension employees!
 Extension 'cogs.employees' has no 'setup' function.
-2023-08-05 16:34:00 | INFO   | bot | Loaded extension events!
-2023-08-05 16:34:00 | INFO   | bot | Database initalized!
-2023-08-05 16:34:03 | INFO   | bot | Logged in as JEI_TEST!
-2023-08-05 16:34:03 | INFO   | bot | discord.py version: 2.3.1
-2023-08-05 16:34:03 | INFO   | bot | python version: 3.10.12
-2023-08-05 16:34:03 | INFO   | bot | Running on: Linux 6.4.4-arch1-1, posix
-2023-08-05 16:34:03 | INFO   | bot | Syncing commands globally...
+2023-08-07 14:28:54 | INFO   | bot | Database initalized!
+2023-08-07 14:28:56 | INFO   | bot | Logged in as JEI_TEST!
+2023-08-07 14:28:56 | INFO   | bot | discord.py version: 2.3.1
+2023-08-07 14:28:56 | INFO   | bot | python version: 3.11.4
+2023-08-07 14:28:56 | INFO   | bot | Running on: Linux 6.3.12_1, posix
+2023-08-07 14:28:56 | INFO   | bot | Syncing commands globally...

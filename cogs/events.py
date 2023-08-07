@@ -28,7 +28,8 @@ class Events(commands.Cog, name="events"):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
         await member.send(view=forms.verify_view())
-        await view.wait()
+        await forms.verify_view().wait()
+
 
 
 

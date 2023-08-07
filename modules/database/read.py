@@ -1,9 +1,10 @@
 import os
 from hashlib import sha256
+from pathlib import Path
 
 import aiosqlite
 
-DATA_PATH = f"{os.path.realpath(os.path.dirname(__file__))}/../data/database.db"
+DATA_PATH = f"{Path(__file__).parent.parent.parent}/data/database.db"
 
 #Check if unique id already exists (interns, instructors, admins)
 async def id_exists(type: str, id: str) -> bool:
@@ -26,7 +27,7 @@ async def id_exists(type: str, id: str) -> bool:
 
     async with aiosqlite.connect(DATA_PATH) as db:
         async with db.execute(
-            f"SELECT * FROM {table} WHERE {id_type}=?", (id) 
+            f"SELECT * FROM {table} WHERE {id_type}=?", (id,) 
         ) as cursor:
             result = await cursor.fetchone()
             return result is not None
@@ -49,16 +50,17 @@ async def discord_exists(type: str, discord_id: int) -> bool:
 
     async with aiosqlite.connect(DATA_PATH) as db:
         async with db.execute(
-            f"SELECT * FROM {table} WHERE discord_id=?", (discord_id) 
+            f"SELECT * FROM {table} WHERE discord_id=?", (discord_id,) 
         ) as cursor:
             specialized = await cursor.fetchone()
 
         async with db.execute(
-            f"SELECT * FROM verified WHERE discord_id=?", (discord_id) 
+            f"SELECT * FROM verified WHERE discord_id=?", (discord_id,) 
         ) as cursor:
-            regular = await cursor.fetchone()
+            verified = await cursor.fetchone()
 
-    return (verified and specialized)
+    return ((verified != None) and (specialized != None))
+
 
 #Check if password is correct for sepcified user
 async def admin_check_psk(psk: str, discord_id: int) -> bool:
