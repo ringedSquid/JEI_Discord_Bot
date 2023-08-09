@@ -1,5 +1,5 @@
 import datetime
-from typing import Dict
+from typing import Dict, Optional, Union
 
 import discord
 from discord import Embed, user
@@ -62,7 +62,7 @@ def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
 
     return embed
 
-def confirm_verify_success_embed(data: Dict, result: bool, user: discord.User, admin: discord.User):
+def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.User, discord.Member], admin: Union[discord.User, discord.Member]):
     id_type = None
     f_type = None
     color = 0x00 
@@ -98,9 +98,10 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: discord.User, a
 
     embed.set_author(name="Verify User")
     embed.set_thumbnail(url=user.avatar)
-    embed.add_field(name=id_type, value=id, inline=True)
-    embed.add_field(name="Discord ID", value=str(user.id), inline=True)
-    embed.add_field(name="Processed By", value=str(admin.name), inline=True)
+    embed.add_field(name=id_type, value=data["syep_id"], inline=True)
+    embed.add_field(name="Discord ID", value=user.id, inline=True)
+    embed.add_field(name="\u200B", value="\u200B")
+    embed.add_field(name="Processed By", value=str(admin.name))
 
     return embed
 

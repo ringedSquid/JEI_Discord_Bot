@@ -29,12 +29,13 @@ class Events(commands.Cog, name="events"):
     async def on_member_join(self, member):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
-        await member.send(view=forms.verify_view())
+        await member.send(view=forms.verify_view(bot.get_channel(1133458980530835508)))
         #await forms.verify_view().wait()
 
     @app_commands.command(name="verify_test", description="test verify")
     async def verify_test(self, interaction: discord.Interaction):
-        await interaction.response.send_message(view=forms.verify_view())
+        bot = self.bot
+        await interaction.response.send_message(view=forms.verify_view(bot.get_channel(1133458980530835508)))
 
 
 

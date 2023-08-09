@@ -1,55 +1,51 @@
-from typing import Dict
+from typing import Dict, Union
 from modules.database import read, edit
 import modules.embeds as embeds
 
 import discord
 
-from discord import SelectOption, ui, user 
+from discord import SelectOption, Thread, ui, user 
 from discord.ext.commands import Bot
 
 class verify_confirm_view(discord.ui.View):
     #this class will hold the user data and the message id so that
     #the embed can be edited
-    def __init__(self, data: Dict, bot: Bot, user: discord.User):
-        self.bot = bot
+    def __init__(self, data: Dict, user: discord.User):
+        super().__init__()
         self.data = data
         self.user = user
 
 
     @ui.button(label="Accept", style=discord.ButtonStyle.green)
-    async def accept(self, interaction: discord.Interaction):
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message(
-            content=None
-            view=None
             embed=embeds.success_embed_1(
                 "Success!", 
-                f"{data['f_name']} {data['l_name']} has been verified as {data['rank']}."
+                f"{self.data['f_name']} {self.data['l_name']} has been verified as {self.data['rank']}."
             )
         )
 
         await interaction.message.edit(
-            content=None
-            view=None
-            embed=embeds.embeds.confirm_verify_embed(self.data, True, self.user, interaction.user)
+            content=None,
+            view=None,
+            embed=embeds.confirm_verify_success_embed(self.data, True, self.user, interaction.user)
         )
         
         self.stop()
 
     @ui.button(label="Reject", style=discord.ButtonStyle.red)
-    async def reject(self, interaction: discord.Interaction):
+    async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message(
-            content=None
-            view=None
-            embed=embeds.success_embed_1(
+            embed=embeds.error_embed_1(
                 "Success!", 
-                f"{data['f_name']} {data['l_name']} has been rejected!"
+                f"{self.data['f_name']} {self.data['l_name']} has been rejected!"
             )
         )
 
         await interaction.message.edit(
-            content=None
-            view=None
-            embed=embeds.embeds.confirm_verify_embed(self.data, False, self.user, interaction.user)
+            content=None,
+            view=None,
+            embed=embeds.confirm_verify_success_embed(self.data, False, self.user, interaction.user)
         )
         
         self.stop()
@@ -57,7 +53,10 @@ class verify_confirm_view(discord.ui.View):
 
 
 class verify_view(discord.ui.View):
-    type = None
+    def __init__(self, verify_channel: Union[discord.abc.GuildChannel, discord.Thread, discord.abc.PrivateChannel]):
+        super().__init__()
+        self.verify_channel = verify_channel
+        self.type = None
 
     @ui.select(
         placeholder = "select your role",
@@ -72,7 +71,7 @@ class verify_view(discord.ui.View):
         self.type = select_item.values[0]
         match self.type:
             case "intern":
-                await interaction.response.send_modal(verify_modal_intern())
+                await interaction.response.send_modal(verify_modal_intern(self.verify_channel))
             case "instructor":
                 await interaction.response.send_modal(verify_modal_instructor())
             case "admin":
@@ -188,6 +187,10 @@ class verify_modal_instructor(ui.Modal, title="verify"):
 
 
 class verify_modal_intern(ui.Modal, title="verify"):
+    def __init__(self, verify_channel: Union[discord.abc.GuildChannel, discord.Thread, discord.abc.PrivateChannel]):
+        super().__init__()
+        self.verify_channel = verify_channel
+
     name = ui.TextInput(
         label = "Full Name",
         style = discord.TextStyle.short,
@@ -227,6 +230,10 @@ class verify_modal_intern(ui.Modal, title="verify"):
             }
 
             embed = embeds.confirm_verify_embed(data, interaction.user)
+            view = verify_confirm_view(data, interaction.user)
+            await self.verify_channel.send(embed=embed, view=view)
+            await interaction.response.send_message("Success!")
+
 
 
 
