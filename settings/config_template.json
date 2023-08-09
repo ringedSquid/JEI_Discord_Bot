@@ -2,5 +2,6 @@
   "prefix": "!",
   "intents": [],
   "token": "",
-  "sync_commands_globally": true
+  "sync_commands_globally": true,
+  "verify_channel": 1138641805689245826
 }

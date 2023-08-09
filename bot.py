@@ -10,6 +10,7 @@ from modules.logs import LoggingFormatter
 
 import discord
 import aiosqlite
+from discord.ext import commands
 from discord.ext.commands import Bot, Context
 
 LOG_PATH = "etc/logs"
@@ -62,6 +63,7 @@ def init_bot(config) -> Bot:
     #init intents
     intents = discord.Intents.default()
     intents.members = True
+    intents.message_content = True
     #init bot
     bot = Bot(
         command_prefix = config["prefix"],
@@ -112,6 +114,12 @@ def main():
     bot.logger = logger
     bot.usr_logger = usr_logger
     bot.config = config
+    
+    @bot.command()
+    async def sync(ctx: commands.Context):
+        bot.tree.copy_global_to(guild=ctx.guild)
+        await bot.tree.sync(guild=ctx.guild)
+        await ctx.send(content = "YPYUPUPYUP")
 
     asyncio.run(load_cogs(bot))
     asyncio.run(init_db(bot))

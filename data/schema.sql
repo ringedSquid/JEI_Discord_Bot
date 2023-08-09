@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS 'admins' (
   'f_name' varchar(20) NOT NULL,
   'l_name' varchar(50) NOT NULL,
   'jei_id' varchar(7) NOT NULL,
-  'p_level' varchar(1) NOT NULL,
   'key' varchar(64) NOT NULL,
   'created_at' timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

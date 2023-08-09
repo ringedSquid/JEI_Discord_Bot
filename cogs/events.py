@@ -6,6 +6,8 @@ import modules.forms as forms
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Context 
+from discord import app_commands
 
 class Events(commands.Cog, name="events"):
     def __init__(self, bot):
@@ -28,9 +30,11 @@ class Events(commands.Cog, name="events"):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
         await member.send(view=forms.verify_view())
-        await forms.verify_view().wait()
+        #await forms.verify_view().wait()
 
-
+    @app_commands.command(name="verify_test", description="test verify")
+    async def verify_test(self, interaction: discord.Interaction):
+        await interaction.response.send_message(view=forms.verify_view())
 
 
 

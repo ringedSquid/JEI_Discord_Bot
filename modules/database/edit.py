@@ -9,6 +9,9 @@ DATA_PATH = f"{Path(__file__).parent.parent.parent}/data/database.db"
 #Add a user, adds them to the verified then adds them to the specialized tables
 #Data contains name, rank, discord id, syep or jei id
 async def add_user(data: Dict)-> bool:
+#{'rank': 'intern', 'discord_id': 454739909295734804, 'f_name': 'Jofn', 'l_name': 'wdawd', 'syep_id': '1234515'}
+
+    print(data)
     insert_seq = ""
     insert_tup = ()
     default_tup = (
@@ -27,7 +30,7 @@ async def add_user(data: Dict)-> bool:
                 data["f_name"],
                 data["l_name"],
                 data["jei_id"],
-                data["key"]
+                data["key"],
             )
         case "intern":
             insert_seq = "interns(discord_id, f_name, l_name, syep_id) VALUES (?, ?, ?, ?)"
@@ -35,7 +38,7 @@ async def add_user(data: Dict)-> bool:
                 data["discord_id"],
                 data["f_name"],
                 data["l_name"],
-                data["syep_id"]
+                data["syep_id"],
             )
         case "instructor":
             insert_seq = "interns(discord_id, f_name, l_name, jei_id) VALUES (?, ?, ?, ?)"
@@ -43,15 +46,14 @@ async def add_user(data: Dict)-> bool:
                 data["discord_id"],
                 data["f_name"],
                 data["l_name"],
-                data["jei_id"]
+                data["jei_id"],
             )
         case _:
             return False
 
     async with aiosqlite.connect(DATA_PATH) as db:
-        await db.execute(f"INSERT INTO {insert_seq}", insert_tup,)
+        await db.execute(f"INSERT INTO {insert_seq}", insert_tup)
         await db.execute("INSERT INTO verified(discord_id, f_name, l_name, rank) VALUES (?, ?, ?, ?)", default_tup,) 
-        print("LETS GO")
         await db.commit()
         return True
 
