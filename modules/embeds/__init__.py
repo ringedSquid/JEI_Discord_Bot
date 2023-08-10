@@ -105,4 +105,14 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
 
     return embed
 
+class inital_verify_embed(Embed):
+    def __init__(self):
+        super().__init__()
+        self.title = "Verification Form"
+        self.description = "Please select your role below and fill out the given form."
+        self.color = 0xffffff
+        self.timestamp = datetime.datetime.utcnow()
+        self.set_author(name="JEI Bot")
+        self.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/914/058/f9d")
+
 

@@ -3,6 +3,7 @@ import os
 
 from modules.database import read 
 import modules.forms as forms
+import modules.embeds as embeds
 
 import discord
 from discord.ext import commands
@@ -29,13 +30,20 @@ class Events(commands.Cog, name="events"):
     async def on_member_join(self, member):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
-        await member.send(view=forms.verify_view(bot.get_channel(1133458980530835508)))
+        await member.send(
+            embed=embeds.inital_verify_embed(),
+            view=forms.verify_view(bot.get_channel(1133458980530835508))
+        )
         #await forms.verify_view().wait()
 
     @app_commands.command(name="verify_test", description="test verify")
     async def verify_test(self, interaction: discord.Interaction):
         bot = self.bot
-        await interaction.response.send_message(view=forms.verify_view(bot.get_channel(1133458980530835508)))
+        await interaction.response.send_message(
+            embed=embeds.inital_verify_embed(),
+            ephemeral=True,
+            view=forms.verify_view(bot.get_channel(1133458980530835508))
+        )
 
 
 
