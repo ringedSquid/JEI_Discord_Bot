@@ -6,10 +6,10 @@ BOT CORE:
   File system - DONE
     needs way to check if modal entry has duplicate info
 
-  MODALS 
+  MODALS - DONE
 
 STUFF:
-  1. VERIFY
+  1. VERIFY - DONE
   2. Manage employees
   3. timelogs
   4. new hires
