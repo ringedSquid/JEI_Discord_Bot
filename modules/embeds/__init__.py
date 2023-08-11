@@ -37,6 +37,11 @@ def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
             f_type = "Intern"
             color = 0xf6d32d
 
+        case "volunteer":
+            id_type = "JEI ID"
+            f_type = "Volunteer"
+            color = 0xff7800
+
         case "instructor":
             id_type = "JEI ID"
             f_type = "Instructor"
@@ -57,7 +62,7 @@ def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
 
     embed.set_author(name="Verify User")
     embed.set_thumbnail(url=user.avatar)
-    embed.add_field(name=id_type, value=id, inline=True)
+    embed.add_field(name=id_type, value=data["id"], inline=True)
     embed.add_field(name="Discord ID", value=str(user.id), inline=True)
 
     return embed
@@ -73,6 +78,10 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
             id_type = "SYEP ID"
             f_type = "Intern"
 
+        case "volunteer":
+            id_type = "JEI ID"
+            f_type = "Volunteer"
+
         case "instructor":
             id_type = "JEI ID"
             f_type = "Instructor"
@@ -84,6 +93,7 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
     if (result == True):
         color = 0x33d17a
         f_result = "Accepted"
+
     else:
         color = 0xe01b24 
         f_result = "Rejected"
@@ -98,7 +108,7 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
 
     embed.set_author(name="Verify User")
     embed.set_thumbnail(url=user.avatar)
-    embed.add_field(name=id_type, value=data["syep_id"], inline=True)
+    embed.add_field(name=id_type, value=data["id"], inline=True)
     embed.add_field(name="Discord ID", value=user.id, inline=True)
     embed.add_field(name="\u200B", value="\u200B")
     embed.add_field(name="Processed By", value=str(admin.name))

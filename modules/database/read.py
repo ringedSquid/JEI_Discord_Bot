@@ -9,48 +9,22 @@ DATA_PATH = f"{Path(__file__).parent.parent.parent}/data/database.db"
 #Check if unique id already exists (interns, instructors, admins)
 async def id_exists(type: str, id: str) -> bool:
     id = id.strip()
-    table = None
-    id_type = None
-
-    match type:
-        case "admin":
-            table = "admins"
-            id_type = "jei_id"
-        case "intern":
-            table = "interns"
-            id_type = "syep_id"
-        case "instructor":
-            table = "instructors"
-            id_type = "jei_id"
-        case _:
-            return False
 
     async with aiosqlite.connect(DATA_PATH) as db:
         async with db.execute(
-            f"SELECT * FROM {table} WHERE {id_type}=?", (id,) 
+            f"SELECT * FROM {type}s WHERE id=?", (id,) 
         ) as cursor:
             result = await cursor.fetchone()
             return result is not None
 
 #Check if discord user exists in specified table
 async def discord_exists(type: str, discord_id: int) -> bool:
-    table = None
     specialized = False
     verified = False
 
-    match type:
-        case "admin":
-            table = "admins"
-        case "intern":
-            table = "interns"
-        case "instructor":
-            table = "instructors"
-        case _:
-            return False
-
     async with aiosqlite.connect(DATA_PATH) as db:
         async with db.execute(
-            f"SELECT * FROM {table} WHERE discord_id=?", (discord_id,) 
+            f"SELECT * FROM {type}s WHERE discord_id=?", (discord_id,) 
         ) as cursor:
             specialized = await cursor.fetchone()
 
@@ -60,7 +34,6 @@ async def discord_exists(type: str, discord_id: int) -> bool:
             verified = await cursor.fetchone()
 
     return ((verified != None) and (specialized != None))
-
 
 #Check if password is correct for sepcified user
 async def admin_check_psk(psk: str, discord_id: int) -> bool:

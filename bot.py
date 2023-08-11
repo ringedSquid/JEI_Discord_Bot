@@ -111,6 +111,7 @@ def main():
     
     #init bot
     bot = init_bot(config)
+    bot.verify_channel = config["verify_channel"]
     bot.logger = logger
     bot.usr_logger = usr_logger
     bot.config = config

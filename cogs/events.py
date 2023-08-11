@@ -1,13 +1,14 @@
 import platform
 import os
 
-from modules.database import read 
+from modules.database import read, edit
+from modules.guild import roles
 import modules.forms as forms
 import modules.embeds as embeds
 
+
 import discord
 from discord.ext import commands
-from discord.ext.commands import Context 
 from discord import app_commands
 
 class Events(commands.Cog, name="events"):
@@ -32,9 +33,8 @@ class Events(commands.Cog, name="events"):
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
         await member.send(
             embed=embeds.inital_verify_embed(),
-            view=forms.verify_view(bot.get_channel(1133458980530835508))
+            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(member.guild))
         )
-        #await forms.verify_view().wait()
 
     @app_commands.command(name="verify_test", description="test verify")
     async def verify_test(self, interaction: discord.Interaction):
@@ -42,17 +42,14 @@ class Events(commands.Cog, name="events"):
         await interaction.response.send_message(
             embed=embeds.inital_verify_embed(),
             ephemeral=True,
-            view=forms.verify_view(bot.get_channel(1133458980530835508))
+            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(interaction.guild))
         )
-
-
-
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         bot = self.bot
         bot.usr_logger.info(f"{member.name} <@{member.id}> left!")
-
+        await edit.del_user(member.id)
 
 
 async def setup(bot):
