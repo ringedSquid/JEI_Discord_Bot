@@ -33,16 +33,16 @@ class Events(commands.Cog, name="events"):
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
         await member.send(
             embed=embeds.inital_verify_embed(),
-            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(member.guild))
+            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(member.guild), bot)
         )
 
-    @app_commands.command(name="verify_test", description="test verify")
-    async def verify_test(self, interaction: discord.Interaction):
+    @app_commands.command(name="verify", description="verify yourself!")
+    async def verify(self, interaction: discord.Interaction):
         bot = self.bot
         await interaction.response.send_message(
             embed=embeds.inital_verify_embed(),
             ephemeral=True,
-            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(interaction.guild))
+            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(interaction.guild), bot)
         )
 
     @commands.Cog.listener()

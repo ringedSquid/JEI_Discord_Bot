@@ -110,8 +110,7 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
     embed.set_thumbnail(url=user.avatar)
     embed.add_field(name=id_type, value=data["id"], inline=True)
     embed.add_field(name="Discord ID", value=user.id, inline=True)
-    embed.add_field(name="\u200B", value="\u200B")
-    embed.add_field(name="Processed By", value=str(admin.name))
+    embed.add_field(name="Processed By", value=str(admin.name), inline=True)
 
     return embed
 

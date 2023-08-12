@@ -108,12 +108,14 @@ def main():
 
     logger = init_logs(LOG_PATH, "log0.log", 'w', "bot")
     usr_logger = init_logs(LOG_PATH, "usr_log0.log", 'a', "usr")
+    verify_logger = init_logs(LOG_PATH, "verify_log0.log", 'a', "ver")
     
     #init bot
     bot = init_bot(config)
     bot.verify_channel = config["verify_channel"]
     bot.logger = logger
     bot.usr_logger = usr_logger
+    bot.verify_logger = verify_logger
     bot.config = config
     
     @bot.command()

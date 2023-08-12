@@ -10,6 +10,7 @@ BOT CORE:
 
 STUFF:
   1. VERIFY - DONE
+  FIRST TIME VERIFY EMBED NEEDED
   2. Manage employees
   3. timelogs
   4. new hires
