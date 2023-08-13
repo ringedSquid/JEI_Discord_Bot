@@ -11,11 +11,11 @@ from modules.logs import LoggingFormatter
 import discord
 import aiosqlite
 from discord.ext import commands
-from discord.ext.commands import Bot, Context
+from discord.ext.commands import Bot
 
-LOG_PATH = "etc/logs"
 #dir the project is contained in
 PATH = os.path.realpath(os.path.dirname(__file__))
+LOG_PATH = f"{PATH}/etc/logs"
 DEBUG = True
 
 #initialize logs
@@ -30,7 +30,7 @@ def init_logs(log_path: str, filename: str, w_mode: str, name: str) -> logging.L
 
     #to files
     file_handler = logging.FileHandler(
-        filename = f"{PATH}/{log_path}/{filename}",
+        filename = f"{LOG_PATH}/{filename}",
         encoding = "utf-8",
         mode = w_mode 
     )
@@ -113,6 +113,7 @@ def main():
     #init bot
     bot = init_bot(config)
     bot.verify_channel = config["verify_channel"]
+    bot.guild_id = config["guild_id"]
     bot.logger = logger
     bot.usr_logger = usr_logger
     bot.verify_logger = verify_logger

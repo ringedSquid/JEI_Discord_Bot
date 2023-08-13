@@ -3,5 +3,6 @@
   "intents": [],
   "token": "",
   "sync_commands_globally": true,
-  "verify_channel": 0000000000
+  "verify_channel": 0,
+  "guild_id": 0
 }

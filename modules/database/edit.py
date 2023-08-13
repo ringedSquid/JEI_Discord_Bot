@@ -1,5 +1,5 @@
 import os
-from typing import Dict
+from typing import Dict, List, Optional
 from pathlib import Path
 
 import aiosqlite
@@ -46,7 +46,7 @@ async def add_user(data: Dict)-> bool:
         return True
 
 #delete a user
-async def del_user(id: int)-> bool:
+async def del_user(id: int) -> bool:
     #find groups user is a part of
     rank = None
 
@@ -64,7 +64,21 @@ async def del_user(id: int)-> bool:
         await db.commit()
         return True
 
+async def sync_users(discord_ids: List[int]) -> int:
+    deleted_members = 0
+    database_members = None
+    async with aiosqlite.connect(DATA_PATH) as db:
+        async with(db.execute("SELECT discord_id from VERIFIED")) as cursor:
+            database_members = await cursor.fetchall()
 
+    for member in database_members:
+        if (int(member[0]) not in discord_ids):
+            deleted_members += 1
+            if (await del_user(member[0]) == False):
+                return -1
 
+    return deleted_members
+
+            
 
 

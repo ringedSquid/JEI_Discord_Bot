@@ -4,7 +4,8 @@ BOT CORE:
   Load cogs - DONE
   Error handling
   File system - DONE
-    needs way to check if modal entry has duplicate info
+    NEED WAY TO RESYNC FILESYSTEM IF A USER LEAVES - DONE
+    needs way to check if modal entry has duplicate info - DONE
 
   MODALS - DONE
 

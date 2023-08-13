@@ -21,55 +21,77 @@ class verify_confirm_view(discord.ui.View):
 
     @ui.button(label="Accept", style=discord.ButtonStyle.green)
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-        user = interaction.guild.get_member(self.user.id)
-        data = self.data
+        if (interaction.user.get_role(self.roles["admin"].id) != None):
+            user = interaction.guild.get_member(self.user.id)
+            data = self.data
 
-        await edit.add_user(self.data)
-        self.bot.verify_logger.info(
-            f"{user.name} ({data['f_name']} {data['l_name']}) has been verified as {data['rank']} by {interaction.user}"
-        )
-        await user.add_roles(self.roles[f"{data['rank'].lower()}"])
-        await user.edit(nick=f"{data['f_name']} {data['l_name']}")
-        await user.send(embed=embeds.success_embed_1("Verification Approved!", "You can now access the server!"))
-        
-        await interaction.response.send_message(
-            embed=embeds.success_embed_1(
-                "Success!", 
-                f"{data['f_name']} {data['l_name']} has been verified as {data['rank']}."
-            ),
-            ephemeral=True
-        )
+            await edit.add_user(self.data)
+            self.bot.verify_logger.info(
+                f"{user.name} ({data['f_name']} {data['l_name']}) has been verified as {data['rank']} by {interaction.user}"
+            )
+            await user.add_roles(self.roles[f"{data['rank'].lower()}"])
+            await user.edit(nick=f"{data['f_name']} {data['l_name']}")
+            await user.send(embed=embeds.success_embed_1("Verification Approved!", "You can now access the server!"))
+            
+            await interaction.response.send_message(
+                embed=embeds.success_embed_1(
+                    "Success!", 
+                    f"{data['f_name']} {data['l_name']} has been verified as {data['rank']}."
+                ),
+                ephemeral=True
+            )
 
-        await interaction.message.edit(
-            content=None,
-            view=None,
-            embed=embeds.confirm_verify_success_embed(data, True, user, interaction.user)
-        )
+            await interaction.message.edit(
+                content=None,
+                view=None,
+                embed=embeds.confirm_verify_success_embed(data, True, user, interaction.user)
+            )
+
+            self.stop()
+            
+        else:
+            await interaction.response.send_message(
+                embed=embeds.error_embed_1(
+                    "Invalid Permissions!", 
+                    "You must be an admin to process this query."
+                ),
+                ephemeral=True
+            )
         
-        self.stop()
 
     @ui.button(label="Reject", style=discord.ButtonStyle.red)
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
-        user = interaction.guild.get_member(user.id)
-        data = self.data
-        self.bot.verify_logger.info(
-            f"{user.name} ({data['f_name']} {data['l_name']}) has been rejected from {data['rank']} by {interaction.user}"
-        )
-        await interaction.response.send_message(
-            embed=embeds.success_embed_1(
-                "Success!", 
-                f"{data['f_name']} {data['l_name']} has been rejected!"
-            ),
-            ephemeral=True
-        )
+        if (interaction.user.get_role(self.roles["admin"].id) != None):
+            user = interaction.guild.get_member(user.id)
+            data = self.data
+            self.bot.verify_logger.info(
+                f"{user.name} ({data['f_name']} {data['l_name']}) has been rejected from {data['rank']} by {interaction.user}"
+            )
+            await interaction.response.send_message(
+                embed=embeds.success_embed_1(
+                    "Success!", 
+                    f"{data['f_name']} {data['l_name']} has been rejected!"
+                ),
+                ephemeral=True
+            )
 
-        await interaction.message.edit(
-            content=None,
-            view=None,
-            embed=embeds.confirm_verify_success_embed(data, False, user, interaction.user)
-        )
+            await interaction.message.edit(
+                content=None,
+                view=None,
+                embed=embeds.confirm_verify_success_embed(data, False, user, interaction.user)
+            )
+
+            self.stop()
+
+        else:
+            await interaction.response.send_message(
+                embed=embeds.error_embed_1(
+                    "Invalid Permissions!", 
+                    "You must be an admin to process this query."
+                ),
+                ephemeral=True
+            )
         
-        self.stop()
 
 #Select form for role select
 class verify_view(discord.ui.View):
