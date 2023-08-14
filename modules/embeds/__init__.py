@@ -3,6 +3,7 @@ from typing import Dict, Optional, Union
 
 import discord
 from discord import Embed, user
+from discord.app_commands import describe
 
 def success_embed_1(heading: str, message: str) -> Embed:
     embed = Embed(
@@ -114,6 +115,30 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
 
     return embed
 
+def formals_embed(user: discord.Member, id: str, data: Dict):
+    embed = Embed(
+        title = f"{user.nick} Formals Schedule",
+        description = f"{id}",
+        color = 0x62a0ea,
+    )
+    embed.set_author(name="JEI Bot")
+    embed.set_thumbnail(url=user.avatar)
+     
+    #make a block for each day
+    for day in data.keys():
+        schedule_block = "```txt\n"
+        schedule_block += "+-----------+-------+-------+\n"
+        schedule_block += "|STUDENT    |START  |END    |\n"
+        schedule_block += "+-----------+-------+-------+\n"
+        for k in data[day].keys():
+            schedule_block += f"|{k:11}|{data[day][k]['start_time']:7}|{data[day][k]['end_time']:7}|\n"
+            schedule_block += "+-----------+-------+-------+\n"
+
+        schedule_block += "````"
+        embed.add_field(name=day, value=schedule_block)
+
+    return embed
+
 class inital_verify_embed(Embed):
     def __init__(self):
         super().__init__()
@@ -123,5 +148,4 @@ class inital_verify_embed(Embed):
         self.timestamp = datetime.datetime.utcnow()
         self.set_author(name="JEI Bot")
         self.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/914/058/f9d")
-
 

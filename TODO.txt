@@ -8,7 +8,8 @@ BOT CORE:
     needs way to check if modal entry has duplicate info - DONE
 
   MODALS - DONE
-
+MKAE BOT USE BOT.CONFIG ISNTEAD OF ROLES DICT) 
+IF IT AINT BROKE DONT FIX!
 STUFF:
   1. VERIFY - DONE
   FIRST TIME VERIFY EMBED NEEDED

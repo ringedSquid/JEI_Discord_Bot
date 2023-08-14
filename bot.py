@@ -112,8 +112,7 @@ def main():
     
     #init bot
     bot = init_bot(config)
-    bot.verify_channel = config["verify_channel"]
-    bot.guild_id = config["guild_id"]
+    bot.config = config
     bot.logger = logger
     bot.usr_logger = usr_logger
     bot.verify_logger = verify_logger

@@ -27,7 +27,7 @@ class Events(commands.Cog, name="events"):
 
         #Sync members to database
         member_ids = []
-        members = bot.get_guild(bot.guild_id).members
+        members = bot.get_guild(bot.config["guild_id"]).members
         for i in range(len(members)):
             member_ids.append(members[i].id)
 
@@ -48,7 +48,7 @@ class Events(commands.Cog, name="events"):
         bot.usr_logger.info(f"{member.name} <@{member.id}> joined!")
         await member.send(
             embed=embeds.inital_verify_embed(),
-            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(member.guild), bot)
+            view=forms.verify_view(bot.get_channel(bot.config["verify_channel"]), await roles.get_roles(member.guild), bot)
         )
 
     @commands.Cog.listener()

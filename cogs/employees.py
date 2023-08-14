@@ -3,7 +3,7 @@ from modules.guild import roles
 from modules.logs import files
 import modules.forms as forms
 import modules.embeds as embeds
-
+import modules.gsheets as gsheets
 
 import discord
 from discord.ext import commands
@@ -19,8 +19,14 @@ class Employees(commands.Cog, name="employees"):
         await interaction.response.send_message(
             embed=embeds.inital_verify_embed(),
             ephemeral=True,
-            view=forms.verify_view(bot.get_channel(bot.verify_channel), await roles.get_roles(interaction.guild), bot)
+            view=forms.verify_view(bot.get_channel(bot.config["verify_channel"]), await roles.get_roles(interaction.guild), bot)
         )
+
+    @app_commands.command(name="formals", description="Get a user's formals schedule")
+    @app_commands.describe(user="The User of interest.")
+    async def formals(self, interaction: discord.Interaction, user: discord.Member):
+        embed = await gsheets.get_formals("Formals", user)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
         self.bot.logger.error(error)

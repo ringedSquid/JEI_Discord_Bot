@@ -92,7 +92,6 @@ class verify_confirm_view(discord.ui.View):
                 ephemeral=True
             )
         
-
 #Select form for role select
 class verify_view(discord.ui.View):
     def __init__(

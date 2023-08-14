@@ -17,6 +17,15 @@ async def id_exists(type: str, id: str) -> bool:
             result = await cursor.fetchone()
             return result is not None
 
+#get row
+async def get_id(type: str, discord_id: int):
+    async with aiosqlite.connect(DATA_PATH) as db:
+        async with db.execute(
+            f"SELECT id FROM {type}s WHERE discord_id=?", (discord_id,)
+        ) as cursor:
+            result = await cursor.fetchone()
+            return result
+
 #Check if discord user exists in specified table
 async def discord_exists(type: str, discord_id: int) -> bool:
     specialized = True 

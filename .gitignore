@@ -1,4 +1,5 @@
 .key
 /.env/
 /settings/config.json
+/settings/service_account.json
 
