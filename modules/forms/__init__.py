@@ -118,14 +118,14 @@ class verify_view(discord.ui.View):
 
     async def select_type(self, interaction:discord.Interaction, select_item: discord.ui.Select):
         self.type = select_item.values[0]
-        match self.type:
-            case "intern":
+        with role as self.type:
+            if role ==  "intern":
                 await interaction.response.send_modal(verify_modal_syep(self.type, self.roles, self.verify_channel, self.bot))
-            case "volunteer":
+            elif role == "volunteer":
                 await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
-            case "instructor":
+            elif role == "instructor":
                 await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
-            case "admin":
+            elif role == "admin":
                 await interaction.response.send_modal(verify_modal_admin(self.type, self.roles, self.verify_channel, self.bot))
 
 #form for admins
