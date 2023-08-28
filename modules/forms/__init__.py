@@ -118,7 +118,7 @@ class verify_view(discord.ui.View):
 
     async def select_type(self, interaction:discord.Interaction, select_item: discord.ui.Select):
         self.type = select_item.values[0]
-        with role as self.type:
+        with self.type as role:
             if role ==  "intern":
                 await interaction.response.send_modal(verify_modal_syep(self.type, self.roles, self.verify_channel, self.bot))
             elif role == "volunteer":
