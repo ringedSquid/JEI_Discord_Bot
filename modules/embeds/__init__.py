@@ -1,9 +1,12 @@
 import datetime
 from typing import Dict, Optional, Union
+from pathlib import Path
 
 import discord
 from discord import Embed, user
 from discord.app_commands import describe
+
+ICON = discord.File(f"{Path(__file__).parent}/JEI_logo.png")
 
 def success_embed_1(heading: str, message: str) -> Embed:
     embed = Embed(
@@ -13,7 +16,7 @@ def success_embed_1(heading: str, message: str) -> Embed:
     )
 
     embed.set_author(name="JEI Bot")
-    embed.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/914/058/f9d")
+    #embed.set_thumbnail(url="attachment://JEI_logo.png")
     return embed
 
 def error_embed_1(heading: str, message: str) -> Embed:
@@ -24,7 +27,7 @@ def error_embed_1(heading: str, message: str) -> Embed:
     )
 
     embed.set_author(name="JEI Bot")
-    embed.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/914/058/f9d")
+    #embed.set_thumbnail(url="attachment://JEI_logo.png")
     return embed
 
 def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
@@ -123,5 +126,5 @@ class inital_verify_embed(Embed):
         self.color = 0xffffff
         self.timestamp = datetime.datetime.utcnow()
         self.set_author(name="JEI Bot")
-        self.set_thumbnail(url="https://i.kym-cdn.com/photos/images/original/001/914/058/f9d")
+        #self.set_thumbnail(url="attachment://JEI_logo.png")
 
