@@ -34,27 +34,26 @@ def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
     id_type = None
     f_type = None
     color = 0x00 
+    rank = data["rank"]
+    if rank == "intern":
+        id_type = "SYEP ID"
+        f_type = "Intern"
+        color = 0xf6d32d
 
-    with data["rank"] as rank:
-        if rank == "intern":
-            id_type = "SYEP ID"
-            f_type = "Intern"
-            color = 0xf6d32d
+    elif rank == "volunteer":
+        id_type = "JEI ID"
+        f_type = "Volunteer"
+        color = 0xff7800
 
-        elif rank == "volunteer":
-            id_type = "JEI ID"
-            f_type = "Volunteer"
-            color = 0xff7800
+    elif rank == "instructor":
+        id_type = "JEI ID"
+        f_type = "Instructor"
+        color = 0x62a0ea
 
-        elif rank == "instructor":
-            id_type = "JEI ID"
-            f_type = "Instructor"
-            color = 0x62a0ea
-
-        elif rank =="admin":
-            id_type = "JEI ID"
-            f_type = "Admin"
-            color = 0x00000
+    elif rank =="admin":
+        id_type = "JEI ID"
+        f_type = "Admin"
+        color = 0x00000
 
             
     embed = Embed(
@@ -76,23 +75,23 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
     f_type = None
     color = 0x00 
     f_result = None
+    rank = data["rank"]
 
-    with data["rank"] as rank:
-        if rank == "intern":
-            id_type = "SYEP ID"
-            f_type = "Intern"
+    if rank == "intern":
+        id_type = "SYEP ID"
+        f_type = "Intern"
 
-        elif rank == "volunteer":
-            id_type = "JEI ID"
-            f_type = "Volunteer"
+    elif rank == "volunteer":
+        id_type = "JEI ID"
+        f_type = "Volunteer"
 
-        elif rank == "instructor":
-            id_type = "JEI ID"
-            f_type = "Instructor"
+    elif rank == "instructor":
+        id_type = "JEI ID"
+        f_type = "Instructor"
 
-        elif rank == "admin":
-            id_type = "JEI ID"
-            f_type = "Admin"
+    elif rank == "admin":
+        id_type = "JEI ID"
+        f_type = "Admin"
 
     if (result == True):
         color = 0x33d17a

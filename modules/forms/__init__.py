@@ -62,7 +62,7 @@ class verify_confirm_view(discord.ui.View):
     @ui.button(label="Reject", style=discord.ButtonStyle.red)
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
         if (interaction.user.get_role(self.roles["admin"].id) != None):
-            user = interaction.guild.get_member(user.id)
+            user = interaction.guild.get_member(self.user.id)
             data = self.data
             self.bot.verify_logger.info(
                 f"{user.name} ({data['f_name']} {data['l_name']}) has been rejected from {data['rank']} by {interaction.user}"
@@ -118,15 +118,14 @@ class verify_view(discord.ui.View):
 
     async def select_type(self, interaction:discord.Interaction, select_item: discord.ui.Select):
         self.type = select_item.values[0]
-        with self.type as role:
-            if role ==  "intern":
-                await interaction.response.send_modal(verify_modal_syep(self.type, self.roles, self.verify_channel, self.bot))
-            elif role == "volunteer":
-                await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
-            elif role == "instructor":
-                await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
-            elif role == "admin":
-                await interaction.response.send_modal(verify_modal_admin(self.type, self.roles, self.verify_channel, self.bot))
+        if self.type ==  "intern":
+            await interaction.response.send_modal(verify_modal_syep(self.type, self.roles, self.verify_channel, self.bot))
+        elif self.type == "volunteer":
+            await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
+        elif self.type == "instructor":
+            await interaction.response.send_modal(verify_modal_jei(self.type, self.roles, self.verify_channel, self.bot))
+        elif self.type == "admin":
+            await interaction.response.send_modal(verify_modal_admin(self.type, self.roles, self.verify_channel, self.bot))
 
 #form for admins
 class verify_modal_admin(ui.Modal, title="verify"):
