@@ -16,7 +16,7 @@ def success_embed_1(heading: str, message: str) -> Embed:
     )
 
     embed.set_author(name="JEI Bot")
-    #embed.set_thumbnail(url="attachment://JEI_logo.png")
+    embed.set_thumbnail(url="attachment://JEI_logo.png")
     return embed
 
 def error_embed_1(heading: str, message: str) -> Embed:
@@ -35,23 +35,23 @@ def confirm_verify_embed(data: Dict, user: discord.User) -> Embed:
     f_type = None
     color = 0x00 
 
-    match data["rank"]:
-        case "intern":
+    with data["rank"] as rank:
+        if rank == "intern":
             id_type = "SYEP ID"
             f_type = "Intern"
             color = 0xf6d32d
 
-        case "volunteer":
+        elif rank == "volunteer":
             id_type = "JEI ID"
             f_type = "Volunteer"
             color = 0xff7800
 
-        case "instructor":
+        elif rank == "instructor":
             id_type = "JEI ID"
             f_type = "Instructor"
             color = 0x62a0ea
 
-        case "admin":
+        elif rank =="admin":
             id_type = "JEI ID"
             f_type = "Admin"
             color = 0x00000
@@ -77,20 +77,20 @@ def confirm_verify_success_embed(data: Dict, result: bool, user: Union[discord.U
     color = 0x00 
     f_result = None
 
-    match data["rank"]:
-        case "intern":
+    with data["rank"] as rank:
+        if rank == "intern":
             id_type = "SYEP ID"
             f_type = "Intern"
 
-        case "volunteer":
+        elif rank == "volunteer":
             id_type = "JEI ID"
             f_type = "Volunteer"
 
-        case "instructor":
+        elif rank == "instructor":
             id_type = "JEI ID"
             f_type = "Instructor"
 
-        case "admin":
+        elif rank == "admin":
             id_type = "JEI ID"
             f_type = "Admin"
 

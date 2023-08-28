@@ -18,26 +18,24 @@ async def add_user(data: Dict)-> bool:
         data["rank"]
     )
 
-    match data["rank"]:
-        #key will be hashed already
-        case "admin":
-            insert_seq = "admins(discord_id, f_name, l_name, id, key) VALUES (?, ?, ?, ?, ?)"
-            insert_tup = (
-                data["discord_id"],
-                data["f_name"],
-                data["l_name"],
-                data["id"],
-                data["key"],
-            )
+    if (data["rank"] ==  "admin"):
+        insert_seq = "admins(discord_id, f_name, l_name, id, key) VALUES (?, ?, ?, ?, ?)"
+        insert_tup = (
+            data["discord_id"],
+            data["f_name"],
+            data["l_name"],
+            data["id"],
+            data["key"],
+        )
 
-        case _:
-            insert_seq = f"{data['rank']}s(discord_id, f_name, l_name, id) VALUES (?, ?, ?, ?)"
-            insert_tup = (
-                data["discord_id"],
-                data["f_name"],
-                data["l_name"],
-                data["id"],
-            )
+    else:
+        insert_seq = f"{data['rank']}s(discord_id, f_name, l_name, id) VALUES (?, ?, ?, ?)"
+        insert_tup = (
+            data["discord_id"],
+            data["f_name"],
+            data["l_name"],
+            data["id"],
+        )
 
     async with aiosqlite.connect(DATA_PATH) as db:
         await db.execute(f"INSERT INTO {insert_seq}", insert_tup)
