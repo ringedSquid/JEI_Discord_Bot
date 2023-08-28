@@ -122,7 +122,7 @@ def main():
     async def sync(ctx: commands.Context):
         bot.tree.copy_global_to(guild=ctx.guild)
         await bot.tree.sync(guild=ctx.guild)
-        await ctx.send(content = "YPYUPUPYUP")
+        await ctx.send(content = "Commands Synced!")
 
     asyncio.run(load_cogs(bot))
     asyncio.run(init_db(bot))
